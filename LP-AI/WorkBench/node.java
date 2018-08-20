@@ -7,13 +7,13 @@ class node{
 	node parent;
 	//int adj[];
 	//int adj[];
-	int state[][];	
+	int state[][]=new int[3][3];	
 	int goal[][];
 	double g;
 	node(){
 	
 	}
-	public node(int state[][]){
+	public node(int state1[][]){
 		this.name=nodecount;
 		nodecount++;
 		this.visit=false;
@@ -21,7 +21,12 @@ class node{
 		this.g=0;
 		//this.goal=goal;
 		//this.huristic=calculate_huristic();
-		this.state=state;
+		//state[][]=new int[3][3];
+            for(int i=0;i<3;i++){
+            	for(int j=0;j<3;j++){
+            	  this.state[i][j]=state1[i][j];	
+            	}
+            } 
 		this.neighbours=neighbours;
 	}
 
@@ -38,10 +43,10 @@ class node{
 		}
 	public void show(){
 		if(parent==null){
-		System.out.print("At  ["+name+"] ROOT G----> "+g+" ADJ-->  ");
+		System.out.print("At  ["+name+"] ROOT G----> "+g+" State--> \n");
 		}
 		else{
-		System.out.print("At  ["+name+"] Parent ["+parent.getname()+"] G----> "+g+" State-->  ");
+		System.out.print("At  ["+name+"] Parent ["+parent.getname()+"] G----> "+g+" State--> \n");
 		}
 		
 		

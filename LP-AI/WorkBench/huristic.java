@@ -10,6 +10,7 @@ class huristic{
 	//static int goal_grid[][]={{1,2,3},{8,0,4},{7,6,5}};
 	static int goal;
 	static int v;	
+	//static int transit[][]=new int [3][3];
 	//static node node_list[]=new node[10];
 	//static node open[]=new node[10];
 	//static node closed[]=new node[10];
@@ -84,21 +85,100 @@ class huristic{
 		  }	
 		}
 	}*/
+	
+	public static void makeleft(int i,int j,int state[][]){
+		//int temp_state[][]=state[][];
+		state[i][j]=state[i][j-1];
+		state[i][j-1]=0;
+		
+	    System.out.println("In makeLeft");
+		node temp=new node(state);
+		if(!visted_before(temp)){
+	    System.out.println("add left");
+		   open.add(temp);	
+		}
+	}
+	public static void makeright(int i,int j,int state[][]){
+		state[i][j]=state[i][j+1];
+		state[i][j+1]=0;
+		node temp=new node(state);
+		if(!visted_before(temp)){
+		   open.add(temp);	
+		}
+	}
+	public static void makeup(int i,int j,int state[][]){
+		state[i][j]=state[i-1][j];
+		state[i-1][j]=0;
+		node temp=new node(state);
+		
+	    System.out.println("In Makup");
+		if(!visted_before(temp)){
+		   open.add(temp);	
+		}
+	}
+	public static void makedown(int i,int j,int state[][]){
+		state[i][j]=state[i+1][j];
+		state[i+1][j]=0;
+		node temp=new node(state);
+		if(!visted_before(temp)){
+		   open.add(temp);	
+		}
+	}
 
 	public static void gen8puzzle(node current){
+	System.out.println("In 8*");		
 	    int position[]= get_blank(current);
 	    int i=position[0];
             int j=position[1];		 
             int state[][]=current.getstate();
             int temp[][];
-    
+            
 	    if(i==0&&j==0){
-	    
+	    	makeright(i,j,state);
+	    	makedown(i,j,state);
 	    }
 	    else if(i==0&&j==1){
-	    
+	    	makeleft(i,j,state);
+	    	makeright(i,j,state);
+	    	makedown(i,j,state);
 	    }
-				
+	    else if(i==0&&j==2){
+	    	makeleft(i,j,state);
+	    	makedown(i,j,state);
+	    }
+	    else if(i==1&&j==0){
+	    	makeright(i,j,state);
+	    	makeup(i,j,state);
+	    	makedown(i,j,state);
+	    }
+	    else if(i==1&&j==1){
+	    	makeleft(i,j,state);
+	    	makeright(i,j,state);
+	    	makedown(i,j,state);
+	    	makeup(i,j,state);
+	    }
+	    else if(i==1&&j==2){
+	    	makeleft(i,j,state);
+	    	makedown(i,j,state);
+	    	makeup(i,j,state);
+	    }
+	    else if(i==2&&j==0){
+	    	makeright(i,j,state);
+	    	makeup(i,j,state);
+	    }
+	    else if(i==2&&j==1){
+	    
+	    //System.out.println("In 21");
+	    	makeleft(i,j,state);
+	    	makeright(i,j,state);
+	    	makeup(i,j,state);
+	    }
+	    else if(i==2&&j==2){
+	    
+	    System.out.println("In 22");
+	    	makeleft(i,j,state);
+	    	makeup(i,j,state);
+	    }
 	}
 
 
@@ -135,6 +215,13 @@ class huristic{
 
 	public static boolean visted_before(node current){
 	    boolean visit=false;
+	    
+	    System.out.println("In Visit Before Comapre state ");
+	    System.out.println("Current");
+	    current.show();
+	    System.out.println("From open");
+	    open.get(0).show();
+	    
 	    	for(node temp:open){
 		   if(compareState(current,temp)){visit=true;return visit;}
 		}
