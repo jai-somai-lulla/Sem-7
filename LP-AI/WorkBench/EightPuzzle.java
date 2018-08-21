@@ -194,7 +194,19 @@ class EightPuzzle{
 		f=(int)g+h;	
 			return f;
 	}
-	
+	public static boolean isGoal(node current){
+		int h=0;
+		 int state[][]=current.getstate();
+		      for(int i=0;i<3;i++){
+			  for(int j=0;j<3;j++){
+				if(final_state[i][j]!=state[i][j]){
+				  h++;	
+				}		
+			  }
+			}
+		if(h==0)return true;
+		else return false;
+	}
 	
 	public static int[] get_blank(node an){
 	int a[][]=an.getstate();
@@ -250,7 +262,7 @@ public static void best_first(){
 		open.add(current);
 		current.set_g(0);
 		//list_display();
-		while(calculate_huristic(current)!=0&&!open.isEmpty()){
+		while(!isGoal(current)&&!open.isEmpty()){
 			System.out.println("---------------=---------------");
 			System.out.print("Current ");
 			current.show();	
