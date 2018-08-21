@@ -8,8 +8,9 @@ class node{
 	//int adj[];
 	//int adj[];
 	int state[][]=new int[3][3];	
-	int goal[][];
+	//int goal[][];
 	double g;
+	//int f;
 	node(){
 	
 	}
@@ -30,17 +31,6 @@ class node{
 		this.neighbours=neighbours;
 	}
 
-	public int calculate_huristic(){
-		      int h=0;
-		      for(int i=0;i<3;i++){
-			  for(int j=0;j<3;j++){
-				if(goal[i][j]!=state[i][j]){
-				  h++;	
-				}		
-			  }
-			}
-			return h;
-		}
 	public void show(){
 		if(parent==null){
 		System.out.print("At  ["+name+"] ROOT G----> "+g+" State--> \n");
