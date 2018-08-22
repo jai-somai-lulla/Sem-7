@@ -29,9 +29,10 @@ import java.util.*;
 class Planner{
 	static Stack<String> goalStack = new Stack<>();
 	static String start_state="ON(B,A) ^ ONTABLE(A) ^ ONTABLE(C) ^ ONTABLE(D) ^ ARMEMPTY ^ CLEAR(B) ^ CLEAR(C) ^ CLEAR(D)";
-	static String goal_state="ON(B,D) ^ ON(C,A) ^ ONTABLE(A) ^ ONTABLE(D) ^ CLEAR(B) ^ CLEAR(C)"; 
+	static String goal_state="ON(B,D) ^ ON(C,A) ^ ONTABLE(A) ^ ONTABLE(D) ^ CLEAR(B) ^ CLEAR(C)";
+    //static String goal_state="ON(C,A) ^ ON(B,D) ^ ONTABLE(A) ^ ONTABLE(D) ^ CLEAR(B) ^ CLEAR(C)"; 
 	static ArrayList<String> current_state;
-	
+    static ArrayList<String> action_list=new ArrayList<>();
 	
 	
 	public static void list_operate(ArrayList<String> lp,ArrayList<String> la,ArrayList<String> ld,boolean alltrue){
@@ -64,13 +65,14 @@ class Planner{
 	
 	public static void stack(char x,char y,boolean alltrue){
 	    String Pre="HOLDING("+x+")^CLEAR("+y+")";
-        String Add="ARMEMPTY^On("+x+","+y+")^CLEAR("+x+")";
+        String Add="ARMEMPTY^ON("+x+","+y+")^CLEAR("+x+")";
         String Del="CLEAR("+y+")^HOLDING("+x+")";
         ArrayList<String> lp=list_assertion(Pre);
         ArrayList<String> la=list_assertion(Add);
         ArrayList<String> ld=list_assertion(Del);
         if(!alltrue){
            goalStack.push("STACK("+x+","+y+")");
+           goalStack.push(Pre);
         }
         list_operate(lp,la,ld,alltrue);
 	}
@@ -83,6 +85,7 @@ class Planner{
         ArrayList<String> ld=list_assertion(Del);
         if(!alltrue){
            goalStack.push("UNSTACK("+x+","+y+")");
+           goalStack.push(Pre);
         }
         list_operate(lp,la,ld,alltrue);   
 	}
@@ -95,6 +98,7 @@ class Planner{
         ArrayList<String> ld=list_assertion(Del);
         if(!alltrue){
            goalStack.push("PICKUP("+x+")");
+           goalStack.push(Pre);
         }
         list_operate(lp,la,ld,alltrue);   
 	}
@@ -107,6 +111,7 @@ class Planner{
         ArrayList<String> ld=list_assertion(Del);
         if(!alltrue){
            goalStack.push("PUTDOWN("+x+")");
+           goalStack.push(Pre);
         }
         list_operate(lp,la,ld,alltrue);   
 	}
@@ -131,32 +136,48 @@ class Planner{
 	    for(String sg:subgoals){
 	      goalStack.push(sg.trim());
 	    }
-	    
-	    
+	    boolean b=true;
+	    String s="ON(a,b)";
+	    //char p='b';
+	    //System.out.println(s.matches("ON\\(.,"+p+"\\)"));if(b)return;
 	      //stack('a','b',false);
-	    show_stack();
+	    //show_stack();
 	    char t='\0';
 	    char x='\0';
 	    char y='\0';
 	    String temp="";
+	    ArrayList<String> simple;
 	     while(!goalStack.empty()){
+	         show_stack();
+	      //   try{Thread.sleep(5000);}
+	        // catch(Exception e){e.printStackTrace();}
 	         String top=goalStack.pop();
 	         //System.out.println("Check if "+top+" holds true");
 	         if(current_state.contains(top)){ 
 	            System.out.println(top+" True pushed off Stack");
-	            show_stack();
+	            //show_stack();
+	         }
+	         else if(top.contains("^")){
+	            //SPLIT AND RESTACK
+	            System.out.println(top+" Compound Split Before Re-entry"); 
+	            simple=list_assertion(top);
+	            for(String sp:simple){
+	                goalStack.push(sp);
+	            }
 	         }
 	         else{
 	            if(top.contains("ONTABLE")){
 	                x=top.charAt(8);
 	                putdown(x,false);
+	                System.out.println(top+" False Replaced with action"); 
+	            
 	            }
 	            else if(top.contains("ON")){
 	                x=top.charAt(3);
 	                y=top.charAt(5);
 	                stack(x,y,false);
-	                System.out.println(top+" Replaced");
-	                show_stack();
+	                System.out.println(top+" False Replaced with action");
+	                //show_stack();
 	            }
 	            else if(top.contains("ARMEMPTY")){
 	                //check for holding and put down OR STACK 
@@ -167,6 +188,7 @@ class Planner{
 	                }
 	                x=temp.charAt(8);
 	                putdown(x,false);
+	                System.out.println(top+" False Replaced with action");
 	                
 	            }
 	            else if(top.contains("HOLDING")){
@@ -183,34 +205,59 @@ class Planner{
 	                   y=temp.charAt(5);
 	                   unstack(x,y,false); 
 	                }
+	                
+	                System.out.println(top+" False Replaced with action");
 	            }
 	            else if(top.contains("CLEAR")){
-	                t=top.charAt(6);
+	            //INCOMPLETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	                y=top.charAt(6);
 	                //look for on(?,t)
-	                //unstack(?,t)         
+	                //unstack(?,t)
+	                for(String assertion:current_state){
+	                        if(assertion.matches("ON\\(.,"+y+"\\)")){
+	                            temp=assertion;
+	                        }
+	                    }
+	                   x=temp.charAt(3);
+	                unstack(x,y,false);
+	                
+	                System.out.println(top+" False Replaced with action");    
+	                //goalStack.push(top);     
 	            }
 	            else if(top.contains("UNSTACK")){
 	                x=top.charAt(8);
 	                y=top.charAt(10);
 	                unstack(x,y,true);
+	                action_list.add("UNSTACK("+x+","+y+")");
+	                System.out.println("Action Performed  :::::UNSTACK("+x+","+y+")");
 	            }
 	            else if(top.contains("STACK")){
 	                x=top.charAt(6);
 	                y=top.charAt(8);
 	                stack(x,y,true);
+	                action_list.add("STACK("+x+","+y+")");
+	                System.out.println("Action Performed  :::::STACK("+x+","+y+")");
 	            }
 	            else if(top.contains("PICKUP")){
 	                x=top.charAt(7);
 	                pickup(x,true);
+	                action_list.add("PICKUP("+x+")");
+	                System.out.println("Action Performed  :::::PICKUP("+x+")");
 	            }
 	            else if(top.contains("PUTDOWN")){
 	                x=top.charAt(8);
 	                putdown(x,true);
+	                action_list.add("PUTDOWN("+x+")");
+	                System.out.println("Action Performed  :::::PUTDOWN("+x+")");
 	            }
 	           else{goalStack.push(top);}
 	         }
 	         
 	        //System.out.println(goalStack.pop());   
+	     }
+	     System.out.println("--Steps to perfrom--");
+	     for(String action:action_list){
+	        System.out.println(action);
 	     }
 	     
 	   // show_stack();
