@@ -35,7 +35,6 @@ class huristic{
 		}
 		return opt;
 	}
-	
 	public static void make_children(node current){
 	        //int arr[]=new int[v];
 		int f=0,h=0,g=0,gp=0;
@@ -59,8 +58,6 @@ class huristic{
 		  }	
 		}
 	}
-	
-	
 	public static void closenode(node current){
 		     closed.add(current);
 		     open.remove(current);
