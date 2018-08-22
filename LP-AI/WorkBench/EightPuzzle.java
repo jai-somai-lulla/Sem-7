@@ -4,11 +4,11 @@ class EightPuzzle{
 	static ArrayList<node> open = new ArrayList<node>();
 	static ArrayList<node> closed = new ArrayList<node>();
 	//static int start_state[][]={{1,2,4},{3,0,6},{5,7,8}};
-	static int start_state[][]={{4,5,6},{1,2,3},{7,0,8}};
+	static int start_state[][]={{0,1,4},{6,5,3},{7,2,8}};
 	static int final_state[][]={{4,5,6},{1,2,3},{7,8,0}};
 	
 	public static void gen8puzzle(node state){
-	System.out.println("In 8*");		
+	//System.out.println("In 8*");		
 	    int position[]= get_blank(state);
 	    int i=position[0];
             int j=position[1];		 
@@ -54,7 +54,7 @@ class EightPuzzle{
 	    }
 	    else if(i==2&&j==2){
 	    
-	    System.out.println("In 22");
+	  //  System.out.println("In 22");
 	    	makeleft(i,j,state);
 	    	makeup(i,j,state);
 	    }
@@ -65,7 +65,7 @@ class EightPuzzle{
 		if(!open.isEmpty())opt=open.get(0);
 		else return null;
 		for(node cur:open){
-			if(calculate_huristic(opt)>calculate_huristic(cur)){
+			if(opt.get_f()>cur.get_f()){
 				opt=cur;
 			}
 		}
@@ -91,6 +91,20 @@ class EightPuzzle{
 		}
 	return visit;
 	}
+
+	public static void fcalc(node current){
+		int f=0,g=0,h=0,gp=0;
+		gp=(int)current.getparent().get_g();
+		g=1;
+		current.set_g(g+gp);
+		//System.out.println("G-->"+g);
+		h=calculate_huristic(current);//current.gethuristic();
+		//System.out.println("H-->"+h);
+		f=h+g+gp;
+		//System.out.println("F-->"+f);
+		current.set_f(f);
+	}
+
 	public static void makeleft(int i,int j,node parent){
 		int state[][]=parent.getstate();
 		int child[][]=new int[3][3];
@@ -103,9 +117,10 @@ class EightPuzzle{
 		child[i][j-1]=0;
 		node temp=new node(child);
 		if(!visted_before(temp)){
-		System.out.println("Add left");
+		//System.out.println("Add left");
 		//temp.show();
 		temp.setparent(parent);
+		fcalc(temp);		
 		open.add(temp);	
 		}
 	}
@@ -123,6 +138,7 @@ class EightPuzzle{
 		if(!visted_before(temp)){
 		//temp.show();
 		 temp.setparent(parent);
+		 fcalc(temp);
 		 open.add(temp);	
 		}
 	}
@@ -141,6 +157,7 @@ class EightPuzzle{
 		if(!visted_before(temp)){
 		//temp.show();
 	   	 temp.setparent(parent);
+		 fcalc(temp);
 	   	 open.add(temp);	
 		}
 	}
@@ -160,6 +177,7 @@ class EightPuzzle{
 		if(!visted_before(temp)){
 		//temp.show();
 		temp.setparent(parent);
+		fcalc(temp);
 		open.add(temp);	
 		}
 	}
@@ -185,14 +203,14 @@ class EightPuzzle{
 		 int state[][]=current.getstate();
 		      for(int i=0;i<3;i++){
 			  for(int j=0;j<3;j++){
-				if(final_state[i][j]!=state[i][j]){
+				if(final_state[i][j]!=state[i][j]&&final_state[i][j]!=0&&state[i][j]!=0){
 				  h++;	
 				}		
 			  }
 			}
-		g=(int)current.get_g();
-		f=(int)g+h;	
-			return f;
+		//g=(int)current.get_g();
+		//f=(int)g+h;	
+			return h;
 	}
 	public static boolean isGoal(node current){
 		int h=0;
@@ -261,45 +279,34 @@ public static void best_first(){
 		System.out.println("Init");
 		open.add(current);
 		current.set_g(0);
+		current.set_f(calculate_huristic(current));
 		//list_display();
 		while(!isGoal(current)&&!open.isEmpty()){
-			System.out.println("---------------=---------------");
-			System.out.print("Current ");
-			current.show();	
-			System.out.println();
+			//System.out.println("---------------=---------------");
+			//System.out.print("Current State:");
+			//current.show();	
+			//System.out.println();
 			//node current=node_list.get(start);
-                        temp=current;
-                       
-                        list_display();
+                        //temp=current;
+                      // list_display();
 			//make_children(current);
 			gen8puzzle(current);	
 			closenode(current);
 			if(getopt()==null){break;}
-			current=getopt();// move down the treee	 
-			gp=current.getparent().get_g();
-			//System.out.println("Parent name= "+current.getparent().getname()+" GP-->"+gp);
-			
-			//g=cost[current.getparent().getname()][current.getname()];
-			g=1;
-
-			current.set_g(g+gp);
-			System.out.println("G-->"+g);
-			h=calculate_huristic(current);//current.gethuristic();
-			System.out.println("H-->"+h);
-			f=h+g+gp;
-			System.out.println("F-->"+f);
+			current=getopt();// move down the treee
 			//HILL Climbing LOC
 			//if(current.gethuristic()>temp.gethuristic()){System.out.println("Stopped Climbing no better huristic ");break;}	
 			//current.setparent(temp);	
 		}
 		
-		 System.out.println("------OUT OF LOOP-----------");		
-			list_display();	
+		// System.out.println("------OUT OF LOOP-----------");		
+			//list_display();	
 		if(calculate_huristic(current)==0){
-				System.out.println("Found Goal node!!!");
-				current.show();
+				System.out.println("-Goal Node-");
+				//current.show();
 				traverse_parents(current);
-			}
+				System.out.println("^^^^Start Node^^^");
+		   }
 		else{
 		System.out.println("Search Stopped Not found");
 	        current.show();
