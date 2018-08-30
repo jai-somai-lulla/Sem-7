@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<aiml>
+   <category>
+      <pattern>INVEST</pattern>
+      <template>
+         Hello User I'm here to take all your money
+      </template>
+   </category>
+</aiml>
