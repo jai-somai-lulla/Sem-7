@@ -17,7 +17,21 @@
 }
 
 
+
+
+
     int main()
  {
-    printf("MVM");
+    double a[20][20];
+    double b[20][20];
+    double c[20][20]
+    double m=5,n=5;
+    for(int i=0; i<m; i++)
+        for(int j=0; j<n; j++){
+            a[i][j]=2;
+            b[i][j]=3;
+        }
+    mxv(m,n,c,a,b);  
+    printf("MVM \n");
+    
  }

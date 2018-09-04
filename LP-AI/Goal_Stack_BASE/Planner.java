@@ -32,8 +32,13 @@ class Planner{
 	//static String start_state="ONTABLE(B) ^ ONTABLE(A) ^ ON(C,A) ^ ARMEMPTY ^ CLEAR(C) ^ CLEAR(B)";
 	//static String goal_state="ONTABLE(C) ^ ON(B,C) ^ ON(A,B) ^ ARMEMPTY ^ CLEAR(A)";
 	
-	static String start_state="ON(B,A) ^ ONTABLE(A) ^ ONTABLE(C) ^ ONTABLE(D) ^ ARMEMPTY ^ CLEAR(B) ^ CLEAR(C) ^ CLEAR(D)";
-	static String goal_state="ON(B,D) ^ ON(C,A) ^ ONTABLE(A) ^ ONTABLE(D) ^ CLEAR(B) ^ CLEAR(C)";
+	//static String start_state="ON(B,A) ^ ONTABLE(A) ^ ONTABLE(C) ^ ONTABLE(D) ^ ARMEMPTY ^ CLEAR(B) ^ CLEAR(C) ^ CLEAR(D)";
+	//static String goal_state="ON(B,D) ^ ON(C,A) ^ ONTABLE(A) ^ ONTABLE(D) ^ CLEAR(B) ^ CLEAR(C)";
+	
+	static String start_state="ONTABLE(B) ^ ONTABLE(C) ^ ON(A,C) ^ ON(D,B) ^ ARMEMPTY ^ CLEAR(D) ^ CLEAR(A)";
+	static String goal_state="ONTABLE(A) ^ ON(B,A) ^ ON(C,B) ^ ON(D,C) ^ ARMEMPTY ^ CLEAR(D)";
+	
+	
     //static String goal_state="ON(C,A) ^ ON(B,D) ^ ONTABLE(A) ^ ONTABLE(D) ^ CLEAR(B) ^ CLEAR(C)"; 
 	static ArrayList<String> current_state;
     static ArrayList<String> action_list=new ArrayList<>();
