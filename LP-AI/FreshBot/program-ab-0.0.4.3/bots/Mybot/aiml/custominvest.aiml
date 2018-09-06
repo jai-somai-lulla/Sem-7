@@ -1,9 +1,140 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <aiml>
+<category>
+      <pattern> HELLO ALICE </pattern>
+      <template>
+         Hello Investor
+      </template>      
+   </category>
+   
    <category>
       <pattern>INVEST</pattern>
       <template>
-         Hello User I'm here to take all your money
+         <random>
+            <li> Hello,I'm here to take all your money </li>
+            <li> Hi! Nice to meet you! Let's Get Investing</li>
+            <li> Making it rain !!!!</li>
+            <li> Dem Dollar bills</li>
+            <li> 1 United States Dollar equals 71.92 Indian Rupee</li>
+            <li>It's OK to Dream Big.</li>
+            <li>Price is what you pay. Value is what you get</li>
+            <li>High Returns With Low Risk is the Key</li>
+            <li>It’s far better to buy a wonderful company at a fair price, than a fair company at a wonderful price</li>
+           <li>Only buy something that you’d be perfectly happy to hold if the market shut down for 10 years</li>
+           <li>Our favorite holding period is forever.</li>
+           <li>Someone’s sitting in the shade today because someone planted a tree a long time ago</li>
+         </random>
       </template>
    </category>
+   
+<category>
+   <pattern>hey</pattern>
+     <template>
+      <srai>INVEST</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>hi</pattern>
+     <template>
+      <srai>INVEST</srai>
+   </template>
+</category>
+ 
+<category>
+   <pattern>DONATE</pattern>
+     <template>
+      <srai>INVEST</srai>
+   </template>
+</category>
+
+<category>
+   <pattern>MONEY</pattern>
+     <template>
+      <srai>INVEST</srai>
+   </template>
+</category>
+<category>
+   <pattern>Inspire</pattern>
+     <template>
+      <srai>INVEST</srai>
+   </template>
+</category>   
+<category>
+   <pattern>INVESTMENT</pattern>
+     <template>
+      <srai>INVEST</srai>
+   </template>
+</category>
+
+<category>
+ <pattern>* INVEST</pattern>
+ <template>
+      <srai>INVEST</srai>
+ </template>
+</category>   
+
+    <category>
+      <pattern>I WOULD LIKE TO INVEST IN * </pattern>
+     <template>
+         Lets Talk about <set name = "topic"> <star/>! </set>
+      </template>  
+   </category>  
+   
+   
+   <category>
+      <pattern>DO YOU KNOW WHAT * IS</pattern>
+      <template>
+         <srai>I WOULD LIKE TO INVEST IN <star/></srai>
+      </template>
+   </category>
+   
+   <category>
+      <pattern>Lets Buy</pattern>
+      <template>
+        I'll start diverting your funds into <get name = "topic"/>
+      </template>  
+   </category>  
+   
+   
+    <topic name = "shares">
+      <category>
+         <pattern> * </pattern>
+         <template>SENSEX looks like its taking a.hit</template>
+      </category>
+      
+      <category>
+         <pattern>Reliance</pattern>
+         <template>I think Reliance will do well in the near future .</template>
+      </category>
+      
+      <category>
+         <pattern> Should I invest in  *</pattern>
+         <template>
+         <random>
+            <li>I think <star/> will do well in the near future .</li>
+            <li><star/> is plumitting rapidly</li>
+            <li><star/> is at an all time low</li>
+            <li><star/> is growing steadily</li>
+            <li><star/> is growing exponentially</li>
+         </random>
+         </template>
+      </category>
+    </topic> 
+      
+      <topic name = "gold">
+      <category>
+         <pattern> * </pattern>
+         <template>Every country should have large gold reserves</template>
+      </category>
+      
+      <category>
+         <pattern> Should I invest in  *</pattern>
+         <template>
+         <random>
+            <li>I think Gold will beat <star/> in the near future .</li>
+         </random>
+         </template>
+      </category>
+   </topic>
 </aiml>

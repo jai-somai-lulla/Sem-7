@@ -1,0 +1,17 @@
+0,HELLO ALICE,*,*,Hello Investor,custominvest.aiml
+0,INVEST,*,*,<random>#Newline            <li> Hello#CommaI'm here to take all your money </li>#Newline            <li> Hi! Nice to meet you! Let's Get Investing</li>#Newline            <li> Making it rain !!!!</li>#Newline            <li> Dem Dollar bills</li>#Newline            <li> 1 United States Dollar equals 71.92 Indian Rupee</li>#Newline            <li>It's OK to Dream Big.</li>#Newline            <li>Price is what you pay. Value is what you get</li>#Newline            <li>High Returns With Low Risk is the Key</li>#Newline            <li>It’s far better to buy a wonderful company at a fair price#Comma than a fair company at a wonderful price</li>#Newline           <li>Only buy something that you’d be perfectly happy to hold if the market shut down for 10 years</li>#Newline           <li>Our favorite holding period is forever.</li>#Newline           <li>Someone’s sitting in the shade today because someone planted a tree a long time ago</li>#Newline         </random>,custominvest.aiml
+0,HEY,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,HI,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,DONATE,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,MONEY,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,INSPIRE,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,INVESTMENT,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,* INVEST,*,*,<srai>INVEST</srai>,custominvest.aiml
+0,I WOULD LIKE TO INVEST IN *,*,*,Lets Talk about <set name="topic"> <star/>! </set>,custominvest.aiml
+0,DO YOU KNOW WHAT * IS,*,*,<srai>I WOULD LIKE TO INVEST IN <star/></srai>,custominvest.aiml
+0,LETS BUY,*,*,I'll start diverting your funds into <get name="topic"/>,custominvest.aiml
+0,*,*,SHARES,SENSEX looks like its taking a.hit,custominvest.aiml
+0,RELIANCE,*,SHARES,I think Reliance will do well in the near future .,custominvest.aiml
+0,SHOULD I INVEST IN  *,*,SHARES,<random>#Newline            <li>I think <star/> will do well in the near future .</li>#Newline            <li><star/> is plumitting rapidly</li>#Newline            <li><star/> is at an all time low</li>#Newline            <li><star/> is growing steadily</li>#Newline            <li><star/> is growing exponentially</li>#Newline         </random>,custominvest.aiml
+0,*,*,GOLD,Every country should have large gold reserves,custominvest.aiml
+0,SHOULD I INVEST IN  *,*,GOLD,<random>#Newline            <li>I think Gold will beat <star/> in the near future .</li>#Newline         </random>,custominvest.aiml
