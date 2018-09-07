@@ -1,5 +1,7 @@
+#include <omp.h>
 #include<stdlib.h> 
 #include<stdio.h> 
+#include<math.h> 
 void merge(int arr[], int l, int m, int r) 
 { 
     int i, j, k; 
@@ -60,10 +62,28 @@ void mergeSort(int arr[], int l, int r)
         // large l and h 
         int m = l+(r-l)/2; 
   
-        // Sort first and second halves 
-        mergeSort(arr, l, m); 
-        mergeSort(arr, m+1, r); 
-  
+        // Sort first and second halves
+        
+        #pragma omp parallel sections default(none) \
+shared(arr) firstprivate(l,m,r)
+        {
+        
+    //printf("\nThreads ::::\n %d",omp_get_num_threads());
+             #pragma omp section
+             {
+             int tid=omp_get_thread_num();
+                  printf("\nTid Section 1: %d,",tid); 
+             mergeSort(arr, l, m);
+             }
+             #pragma omp section
+             { 
+             
+             int tid=omp_get_thread_num();
+                  printf("\nTid Section 2: %d,",tid);
+             mergeSort(arr, m+1, r); 
+             }
+         }
+        //#pragma omp barrier    
         merge(arr, l, m, r); 
     } 
 } 
@@ -74,7 +94,7 @@ void printArray(int A[], int size)
 { 
     int i; 
     for (i=0; i < size; i++) 
-        printf("%d ", A[i]); 
+        printf("%d \n", A[i]); 
     printf("\n"); 
 } 
   
@@ -83,7 +103,16 @@ int main()
 { 
 
 
-    int arr[] = {12, 11, 13, 5, 6, 7}; 
+    omp_set_dynamic(0);     // Explicitly disable dynamic teams
+    omp_set_num_threads(2); // Use 4 threads for all consecutive parallel regions
+
+    int arr[100000]; //= {12, 11, 13, 5, 6, 7}; 
+    //int arr1[100000];
+     #pragma omp parallel for
+     for (int i = 0; i < 100000; i++) 
+    {
+       arr[i]=(int)(rand()*100);
+    }
     int arr_size = sizeof(arr)/sizeof(arr[0]); 
     //#pragma omp parallel
     //{
@@ -91,15 +120,20 @@ int main()
     //}   
     //printf("Given array is \n"); 
     //printArray(arr, arr_size); 
-    for(;;){
-     double t= clock();
+    /*for(;;){
+     double t= omp_get_wtime();
      printf("Time %f \n",t);
-     }
+     }*/
+    
+     double start = omp_get_wtime(); 
+    mergeSort(arr, 0, arr_size - 1); 
+     double end = omp_get_wtime();   
+    printf("\nSorted array is \n"); 
+    //printArray(arr, arr_size);
+    double elapsed=end-start;
+     printf("\nTime requried is %f \n",elapsed); 
+   
      
-    //mergeSort(arr, 0, arr_size - 1); 
-  
-    //printf("\nSorted array is \n"); 
-    //printArray(arr, arr_size); 
     return 0; 
 } 
 
