@@ -1,8 +1,9 @@
 #print("Hello")
 library(caTools) 
 library(e1071)
-dat = read.csv("mydata.csv", header = TRUE)
-head(dat)
+#library(caret) 
+dat = read.csv("diabetes.csv", header = TRUE)
+#head(dat)
 #names(dat)
 #summary(dat)
 
@@ -15,10 +16,16 @@ train1 =subset(dat,sample ==TRUE) # creates a training dataset named train1 with
 test1=subset(dat, sample==FALSE)
 #head(train1)
 
-Naive_Bayes_Model <- naiveBayes(Status~., data=train1)
-Naive_Bayes_Model
+Naive_Bayes_Model <- naiveBayes(Outcome~., data=train1)
+#Naive_Bayes_Model
 
-NB_Predictions=predict(Naive_Bayes_Model,test1)
+NB_Predictions=predict(Naive_Bayes_Model,test1,"raw")
+#NB_Predictions
+highestprob=colnames(NB_Predictions)[apply(NB_Predictions,1,which.max)]
+#apply(NB_Predictions, 1, which.is.max)
+#test1$Outcome
+#head(NB_Predictions)
 #Confusion matrix to check accuracy
-table(NB_Predictions,test1$Status)
+xtab=table(highestprob,test1$Outcome)
+confusionMatrix(xtab)
 
