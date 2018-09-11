@@ -54,8 +54,13 @@ void merge(int arr[], int l, int m, int r)
   
 /* l is for left index and r is right index of the 
    sub-array of arr to be sorted */
-void mergeSort(int arr[], int l, int r) 
+void mergeSort(int arr[], int l, int r,int threads) 
 { 
+
+     if ( threads == 1) {
+        mergesort_serial(a, size, temp);
+    }
+    else{
     if (l < r) 
     { 
         // Same as (l+r)/2, but avoids overflow for 
@@ -72,22 +77,24 @@ shared(arr) firstprivate(l,m,r)
              #pragma omp section
              {
              int tid=omp_get_thread_num();
-                  printf("\nTid Section 1: %d,",tid); 
-             mergeSort(arr, l, m);
+                 // printf("\nTid Section 1: %d,",tid); 
+             mergeSort(arr, l, m,threads/2);
              }
              #pragma omp section
              { 
              
              int tid=omp_get_thread_num();
-                  printf("\nTid Section 2: %d,",tid);
-             mergeSort(arr, m+1, r); 
+                  //printf("\nTid Section 2: %d,",tid);
+             mergeSort(arr, m+1, r,threads-threads/2); 
              }
          }
         //#pragma omp barrier    
         merge(arr, l, m, r); 
-    } 
+    }
+   } 
 } 
-  
+
+
 /* UTILITY FUNCTIONS */
 /* Function to print an array */
 void printArray(int A[], int size) 
@@ -102,7 +109,7 @@ void printArray(int A[], int size)
 int main() 
 { 
 
-
+    omp_set_nested(1);
     omp_set_dynamic(0);     // Explicitly disable dynamic teams
     omp_set_num_threads(2); // Use 4 threads for all consecutive parallel regions
 
@@ -124,9 +131,17 @@ int main()
      double t= omp_get_wtime();
      printf("Time %f \n",t);
      }*/
+     int  num_threads=0;
+     #pragma omp parallel
+	{
+		#pragma omp master
+		{
+			num_threads = omp_get_num_threads();
+		}
+}
     
      double start = omp_get_wtime(); 
-    mergeSort(arr, 0, arr_size - 1); 
+    mergeSort(arr, 0, arr_size - 1,num_threads); 
      double end = omp_get_wtime();   
     printf("\nSorted array is \n"); 
     //printArray(arr, arr_size);
