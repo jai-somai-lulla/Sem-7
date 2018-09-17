@@ -1,0 +1,6 @@
+{
+"mydata" :[
+    {"name":"John", "age":31, "city":"New York"},
+    {"name":"Jai", "age":19, "city":"Seattle"}
+]
+}
