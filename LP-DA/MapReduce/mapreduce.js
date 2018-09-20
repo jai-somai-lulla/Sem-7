@@ -15,7 +15,15 @@ db.movierating.aggregate([{ $match: { } },
   ])
                    
                    
+                   
+  var mapFunction1 = function() {
+                         print("J76 Mapper");
+        emit(this.movieid, this.rating);  
+                          };
+
+                  
  var reduceFunction1 = function(movieid, valuesrating) {
+                          print("J76 Reducer");
                           return Array.avg(valuesrating);
                       };
                       

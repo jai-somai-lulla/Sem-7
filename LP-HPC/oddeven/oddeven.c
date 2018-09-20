@@ -45,8 +45,8 @@ void oddeven(int x[],int n){
     int count=0;
     while(changes){
     changes=0;
-    printf("Phase %d\n",count++);
-    #pragma omp for private(temp)
+    //printf("Phase %d\n",count++);
+    #pragma omp parallel for private(temp)
      for(i = 0+phase; i < n - 1; i = i + 2)
             {
                     if(x[i] > x[i+1] )
@@ -62,6 +62,29 @@ void oddeven(int x[],int n){
       }
 }
 
+
+void oddeven_serial(int x[],int n){
+    int changes=1;
+    int phase=0;
+    int i,temp;
+    int count=0;
+    while(changes){
+    changes=0;
+    //printf("Phase %d\n",count++);
+     for(i = 0+phase; i < n - 1; i = i + 2)
+            {
+                    if(x[i] > x[i+1] )
+                    {
+                            temp = x[i];
+                            x[i] = x[i+1];
+                            x[i+1] = temp;
+                            if(changes==0)
+                            changes=1;
+                    }
+            }
+            if(phase==0) phase=1;else phase=0;
+      }
+}
 
 int main() {
 
@@ -81,12 +104,20 @@ int main() {
 			num_threads = omp_get_num_threads();
 		}
 	}
-    printf("Thread Count:%d \n",num_threads);
+    printf("Parallel Thread Count:%d \n",num_threads);
 	setUp(a, SIZE);
 	startTime = omp_get_wtime();
 	oddeven(a,SIZE);
 	endTime = omp_get_wtime();
-
+	tearDown(startTime, endTime, a, SIZE);
+	
+	
+	
+    printf("Serial :%d \n",num_threads);
+	setUp(a, SIZE);
+	startTime = omp_get_wtime();
+	oddeven_serial(a,SIZE);
+	endTime = omp_get_wtime();
 	tearDown(startTime, endTime, a, SIZE);
 }
 
