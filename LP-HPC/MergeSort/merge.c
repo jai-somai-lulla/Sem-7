@@ -2,7 +2,7 @@
 #include<stdlib.h> 
 #include<stdio.h> 
 #include<math.h> 
-#define SIZE 100000
+#define SIZE 100
 void merge(int arr[], int l, int m, int r) 
 { 
     int i, j, k; 
@@ -102,8 +102,8 @@ void mergeSortSerial(int arr[], int l, int r,int threads)
     if (l < r) 
     { 
         int m = l+(r-l)/2;         
-                 mergeSort(arr, l, m,threads/2);
-                 mergeSort(arr, m+1, r,threads-threads/2); 
+                 mergeSortSerial(arr, l, m,threads/2);
+                 mergeSortSerial(arr, m+1, r,threads-threads/2); 
         merge(arr, l, m, r); 
     }
 

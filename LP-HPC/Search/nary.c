@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <omp.h>
-#define SIZE 100000
+#define SIZE 1000
 void setUp(int a[], int size);
 void tearDown(double start, double end, int a[], int size);
 
@@ -11,8 +11,10 @@ void setUp(int a[], int size){
 	int i;
 	srand(time(NULL));
 	for (i = 0; i<size; ++i) {
-		a[i] = rand() % size;
+		a[i] = i*2;
+		printf("%d\n",a[i]);    
 	}
+	//printf("Complete\n");
 	return;
 }
 
@@ -72,9 +74,13 @@ int parallelSearch(int arr[], int l, int r, int x,int num_process)
 
   while (l <= r)
   {
+    if((r-l-4)<num_process){
+        binarySearch(arr,l,r,x);
+    }
    int step=(r-l)/num_process;
    int flag[num_process];
    int f=-1;
+   printf("L:%d R:%d \n",l,r);
    #pragma omp parallel for
    for(int i=0;i<num_process;i++){
         flag[i]=0;
@@ -92,8 +98,8 @@ int parallelSearch(int arr[], int l, int r, int x,int num_process)
    for(int i=0;i<num_process-1;i++)
    {
         if(flag[i]!=flag[i+1]){
-            l=l;
-            r=l+(step*i);
+            l=l+(step*i);                                                                                    
+            r=l+(step*(i+1));
         }
    
    }
@@ -132,7 +138,7 @@ int main() {
     //omp_set_nested(1);
     //omp_set_dynamic(0);     // Explicitly disable dynamic teams
     //omp_set_num_threads(1); // Use 4 threads for all consecutive parallel regions
-    int x=5;
+    int x=2;
 	int a[SIZE];
 	//int temp[SIZE];
 	double startTime, endTime;
