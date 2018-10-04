@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  *
@@ -23,8 +25,7 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
      String uname = "";
     loading l = new loading();
      Socket soc;
-            
-            
+     int f;
     /**
      * Creates new form NewJFrame
      */
@@ -44,16 +45,26 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
     {
     System.out.println(soc.getPort());
     }
-     
+      @Test
+   public void testStudent() throws IOException {
+      soc=new Socket("localhost",1978); 
+      System.out.println("JUnit Login:");   
+      System.out.println("F:"+f);
+      String str = "Junit is working fine";
+     // assertEquals("Junit is working fine",str);
+      jTextField1.setText("jai");
+      jPasswordField1.setText("admin");
+      jComboBox1.setSelectedIndex(0);
+      jButton1.doClick();
+      System.out.println("F:"+f);
+   }
     public void run()
     {
       //  NewJFrame1 n = new NewJFrame1();
     jdbc j =  new jdbc();
          String s ="Select * from login";
          ResultSet r = j.getaccess(s);
-         int f =0;
-         
-        
+          f =0;
         try {
             while(r.next())
             {

@@ -18,8 +18,8 @@ public class jdbc {
           String url="jdbc:mysql://localhost/issue_management";
 //          String user="issue";
 //          String pass="qwerty12";
-          String user="root";
-          String pass="";
+          String user="stark";
+          String pass="iron";
           String d = "com.mysql.jdbc.Driver";
           Connection c;
           Statement s;
