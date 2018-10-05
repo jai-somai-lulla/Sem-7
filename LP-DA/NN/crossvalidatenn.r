@@ -1,8 +1,8 @@
 ## Cross validation of neural network model
 
 # install relevant libraries
-install.packages("boot")
-install.packages("plyr")
+#install.packages("boot")
+#install.packages("plyr")
 
 # Load libraries
 library(boot)

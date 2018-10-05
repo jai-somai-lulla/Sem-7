@@ -50,7 +50,7 @@
    double elapsed=end-start;        
     printf("MVM  Serial:%f\n",elapsed);
     for(int i=0;i<SIZE;i++){
-     printf("%d\n",a[i]);
+     //printf("%d\n",a[i]);
     }    
     
       for(int i=0;i<m;i++){
@@ -63,7 +63,7 @@
    elapsed=end-start;        
     printf("MVM Parallel:%f\n",elapsed);  
       for(int i=0;i<SIZE;i++){
-     printf("%d\n",a[i]);
+    // printf("%d\n",a[i]);
     }    
   
     
