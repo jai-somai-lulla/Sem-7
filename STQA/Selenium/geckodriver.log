@@ -7,3 +7,4 @@
 1539151475682	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
 1539151477309	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.seleniumhq.org/
 1539151479284	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.seleniumhq.org/
+1539152833171	Marionette	INFO	Stopped listening on port 35899
