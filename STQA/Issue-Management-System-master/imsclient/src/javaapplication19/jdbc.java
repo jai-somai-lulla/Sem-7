@@ -34,6 +34,7 @@ public class jdbc {
         }
           
         try {
+           // System.out.println("RetueningACCESS");
             c = DriverManager.getConnection(url, user, pass);
             s= c.createStatement();
             
@@ -46,7 +47,6 @@ public class jdbc {
             Logger.getLogger(jdbc.class.getName()).log(Level.SEVERE, null, ex);
         }
       
-       
         return r;
     } 
      

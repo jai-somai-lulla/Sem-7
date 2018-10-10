@@ -7,6 +7,8 @@ package javaapplication19;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -22,12 +24,17 @@ import javax.mail.internet.InternetAddress;
  * @author Onkar
  */
 public class student_Reg extends javax.swing.JFrame {
-
-      jdbc j =  new jdbc();
-         String s ="Select * from login";
+      int flag;
+      jdbc j ;
+      String s ="Select * from login";
+      Connection c;
+      PreparedStatement ps;
     public student_Reg() {
         initComponents();
-      
+        j = new jdbc();
+        c = j.getconnection();
+        flag=-1;
+        //System.out.println("Made Signup");
     }
 
     /**
@@ -297,17 +304,32 @@ public class student_Reg extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public int setandclick(String name,String class1,String Mno,String Eid,int type,String pass,String repass){
+        jTextField1.setText(name);
+        jTextField2.setText(class1);
+        jTextField5.setText(Mno);
+        jTextField3.setText(Eid);
+        jComboBox1.setSelectedIndex(type);
+        jPasswordField1.setText(pass);
+        jPasswordField2.setText(repass);
+        jButton2.doClick();
+        while(this.flag==-1){
+        }
+        return flag;
+        
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String name=jTextField1.getText();
         String class1=jTextField2.getText();
         String Mno=jTextField5.getText();
         String Eid=jTextField3.getText();
         String type=jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
+        String pass=jPasswordField1.getText();
         Border border = BorderFactory.createLineBorder(Color.red);
-        
         if(name.equals("")||class1.equals("")||Mno.equals("")||Eid.equals(""))
         {
-           
+            flag=0;
             jDialog1.setVisible(true);
             jDialog1.setBounds(0, 0, 419, 204);
             jDialog1.setAlwaysOnTop(true);
@@ -323,11 +345,27 @@ public class student_Reg extends javax.swing.JFrame {
         }
         if(!jPasswordField1.getText().equals(jPasswordField2.getText()))
         {
+            flag=0;
             jDialog1.setVisible(true);
             jDialog1.setBounds(0, 0, 363, 175);
             jDialog1.setAlwaysOnTop(true);
             this.setEnabled(false);
             jPasswordField2.setBorder(border);
+        }
+        if(flag==-1){
+            try {
+                String in ="insert into login values(?,?,?,?)";
+                ps= c.prepareStatement(in);
+                ps.setString(1, pass);
+                ps.setString(2, type);
+                ps.setString(3, name);
+                ps.setString(4, "NULL");
+                ps.executeUpdate();
+                flag=2;
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(student_Reg.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -408,7 +446,7 @@ public class student_Reg extends javax.swing.JFrame {
         }   
         else
         {
-              jLabel1.setText("Email Address");
+            jLabel1.setText("Email Address");
             jLabel1.setForeground(Color.black);
         }
     }//GEN-LAST:event_jTextField5MouseClicked

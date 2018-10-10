@@ -96,7 +96,6 @@
       </template>  
    </category>  
    
-   
     <topic name = "shares">
       <category>
          <pattern> * </pattern>

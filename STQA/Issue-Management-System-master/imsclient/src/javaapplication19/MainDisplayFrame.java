@@ -45,6 +45,7 @@ public class MainDisplayFrame extends javax.swing.JFrame implements Runnable{
     }
     public void run(){}
   
+   
     void setsocket(Socket soc) throws IOException
     {
     this.soc = soc;

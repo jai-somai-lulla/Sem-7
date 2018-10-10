@@ -17,7 +17,7 @@ db.movierating.aggregate([{ $match: { } },
                    
                    
   var mapFunction1 = function() {
-                         print("J76 Mapper");
+                        // print("J76 Mapper");
         emit(this.movieid, this.rating);  
                           };
 

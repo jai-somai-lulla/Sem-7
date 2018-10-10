@@ -28,13 +28,32 @@ public class issue_desc extends javax.swing.JPanel {
     /**
      * Creates new form issue_desc
      */
+    int testflag=0;
     JPanel base_panel;
     Socket soc;
     String uname;
     Main_list_panel lpn ;
+    int flag;
     public issue_desc() {
-        
+        flag=-1;
         initComponents();
+    }
+    
+    public int setandclick(String uname,String title,String Description,int Subcombo,String IID,String status){
+            testflag=1;
+            this.uname=uname;
+            this.title.setText(title);
+            this.description.setText(Description);    
+            this.subjectcombo.setSelectedIndex(Subcombo);
+            
+           // System.out.println("PARAMS"+Subcombo+" extract "+subjectcombo.getSelectedItem().toString());
+            this.iid.setText(IID);
+            this.status.setText(status);
+            submit.doClick();
+            while(flag==-1){
+            
+            }
+            return flag;
     }
     
     public issue_desc(JPanel base,Main_list_panel lp) {
@@ -43,7 +62,7 @@ public class issue_desc extends javax.swing.JPanel {
         initComponents();
     }
     
-    void setsocket(Socket soc) throws IOException
+    public void setsocket(Socket soc) throws IOException
     {
     this.soc = soc;
     }
@@ -287,12 +306,16 @@ public class issue_desc extends javax.swing.JPanel {
             title.setBorder(bor);
             description.setBorder(null);
             
-            if(subjectcombo.getSelectedItem().equals("NONE"))
-             subjectcombo.setBorder(border);
-            else if(title.getText().equals(""))
+            if(subjectcombo.getSelectedItem().equals("NONE")){
+                flag=1;    
+             subjectcombo.setBorder(border);}
+            else if(title.getText().equals("")){
             title.setBorder(border);
-            else if(description.getText().equals(""))
-            description.setBorder(border);
+            flag=1;
+                   }
+            else if(description.getText().equals("")){
+                flag=1;
+            description.setBorder(border);}
             else
             {
             issue s = new issue();
@@ -314,11 +337,14 @@ public class issue_desc extends javax.swing.JPanel {
              dos.flush();
              dos.writeUTF(send);
              dos.flush();
-            
+             flag=2;
         } catch (IOException ex) {
             Logger.getLogger(issue_desc.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+            if(testflag==1){
+             //this.dispose_frame();
+             return;
+            }
             
             CardLayout cardLayout = (CardLayout) base_panel.getLayout();
        cardLayout.show(base_panel,"card2");

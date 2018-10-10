@@ -17,13 +17,23 @@ public class JavaApplication19 {
     /**
      * @param args the command line arguments
      */
+    
+    public JavaApplication19() throws IOException {
+        main(null);
+    }
+
+    public static Socket getSocket() throws IOException{
+        Socket soc=new Socket("localhost",1978);
+        return soc;
+    }
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-            Socket soc=new Socket("localhost",1978); 
-            
-               java.awt.EventQueue.invokeLater(new Runnable() {
+        Socket soc=getSocket();
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                System.out.println("RUNNUNG J19");
                 NewJFrame n = new NewJFrame();
+                System.out.println("HERE");
                 System.out.println(soc.getPort());
                 n.setsocket(soc);
                 //n.display();
@@ -31,7 +41,6 @@ public class JavaApplication19 {
                 n.setSize(810,635);
             }
         });
-               
     }
     
 }

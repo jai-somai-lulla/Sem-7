@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication19;
+
 
 /**
  *
@@ -15,21 +15,24 @@ import org.junit.runner.notification.Failure;
 
 public class TestRunner {
    public static void main(String[] args) {
-      Result result = JUnitCore.runClasses(TestJunit.class);
-		
+      Result result = JUnitCore.runClasses(LoginSuite.class);		
+      for (Failure failure : result.getFailures()) {
+         System.out.println(failure.toString());
+      }		
+      System.out.println("LOGIN ALL TESTS :"+result.wasSuccessful());
+      
+      
+      result = JUnitCore.runClasses(SignupSuite.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
-		
-      System.out.println(result.wasSuccessful());
+      System.out.println("SIGNUP ALL TESTS:"+result.wasSuccessful());
       
       
-      System.out.println("Login Page");
-      result = JUnitCore.runClasses(NewJFrame.class);
+      result = JUnitCore.runClasses(IssueSuite.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
-		
-      System.out.println("Runner:"+result.wasSuccessful());
+      System.out.println("ISSUE ALL TESTS:"+result.wasSuccessful());
    }
 }  	

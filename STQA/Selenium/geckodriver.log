@@ -1,0 +1,9 @@
+1539151464005	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.QWHb6YZsrE8X"
+1539151471314	Marionette	INFO	Listening on port 35899
+1539151471360	Marionette	WARN	TLS certificate errors will be ignored for this session
+1539151471518	Marionette	DEBUG	[2147483649] Frame script loaded
+1539151471535	Marionette	DEBUG	[2147483649] Frame script registered
+1539151471731	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1539151475682	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1539151477309	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.seleniumhq.org/
+1539151479284	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.seleniumhq.org/

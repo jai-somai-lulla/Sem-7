@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication19;
+
 
 /**
  *
@@ -28,17 +28,17 @@ public class TestJunit {
       String str = "Junit is working fine";
      // assertEquals("Junit is working fine",str);
    }
-   
-   public void testJDBC() {
+   //@Test
+  /* public void testJDBC() {
        try {
           System.out.println("Jdbc:");
-           jdbc j =new jdbc();
-           Connection conn=j.getconnection();
+         //  jdbc j =new jdbc();
+          // Connection conn=j.getconnection();
            assertTrue(conn.isValid(10));
        } catch (SQLException ex) {
            Logger.getLogger(TestJunit.class.getName()).log(Level.SEVERE, null, ex);
        }  
-   }
+   }*/
    @Test
    public void testLogin() {
       //  NewJFrame n = new NewJFrame();

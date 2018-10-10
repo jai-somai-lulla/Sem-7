@@ -23,51 +23,75 @@ import org.junit.Test;
 public class NewJFrame extends javax.swing.JFrame implements Runnable{
 
      String uname = "";
-    loading l = new loading();
+     loading l = new loading();
      Socket soc;
+     jdbc j;
      int f;
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
-        
+        System.out.println("New JFrame Created");
+        j=new jdbc();
         initComponents();
+        f=-1;
 //        System.out.println(soc.getPort());
     }
     
     public void setsocket(Socket soc)
     {
     this.soc = soc;
-   
+    }
+    
+     public void setdb(jdbc j)
+    {
+    this.j = j;
+    }
+    public int setfields(String user,String pass,int combo){
+      System.out.println("Fields are now set");
+      this.jTextField1.setText(user);
+      this.jPasswordField1.setText(pass);
+      this.jComboBox1.setSelectedIndex(combo);
+      this.jButton1.doClick();
+      
+         System.out.print("Checking Login");
+     while(f==-1){
+          try {
+              Thread.sleep(2000);
+          } catch (InterruptedException ex) {
+              Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+          }
+         System.out.print(".");
+         //System.out.println("Uname:"+uname);
+     // System.out.println("LOGIN BIT:"+f);
+      //System.out.println("TEXT FEILD:"+jLabel2.getText());
+     }   
+     System.out.println();
+     return f;
+      
     }
     
     public void display()
     {
     System.out.println(soc.getPort());
     }
-      @Test
-   public void testStudent() throws IOException {
-      soc=new Socket("localhost",1978); 
-      System.out.println("JUnit Login:");   
-      System.out.println("F:"+f);
-      String str = "Junit is working fine";
-     // assertEquals("Junit is working fine",str);
-      jTextField1.setText("jai");
-      jPasswordField1.setText("admin");
-      jComboBox1.setSelectedIndex(0);
-      jButton1.doClick();
-      System.out.println("F:"+f);
-   }
+      
     public void run()
     {
+        System.out.println("Running NewJFRAME");
       //  NewJFrame1 n = new NewJFrame1();
-    jdbc j =  new jdbc();
+        //jdbc j =  new jdbc();
+        
          String s ="Select * from login";
+         ////r.toString());
          ResultSet r = j.getaccess(s);
-          f =0;
+         
+         f =0;
+
         try {
             while(r.next())
             {
+                //System.out.println(jTextField1.getText());
                 if(r.getString(3).equals(jTextField1.getText()) && r.getString(1).equals(jPasswordField1.getText()) )
                {
                    if(jComboBox1.getSelectedItem().equals(r.getString(2)))
@@ -252,7 +276,6 @@ public class NewJFrame extends javax.swing.JFrame implements Runnable{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        this.setVisible(false);
-        
        Thread Th1 = new Thread(l);
        Thread Th2 = new Thread(this);
       

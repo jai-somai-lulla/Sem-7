@@ -1,7 +1,8 @@
 library(rpart)
+library(caret) 
 raw=read.csv('bd.csv')
+#raw=raw[1:500,]
 t1=raw[,c(1,4,6,9)]
-
 uq=quantile(t1$Duration)[2]
 lq=quantile(t1$Duration)[4]
 
@@ -22,7 +23,11 @@ index <- sample(1:nrow(t1),round(0.75*nrow(t1)))
 train <- t1[index,]
 test <- t1[-index,]
 fit <- rpart(Member.type~Start.station.number+End.station.number+cd,method="class",data=train,control =rpart.control(minsplit =300,minbucket=100, cp=0))
+#fit <- rpart(Member.type~Start.station.number+End.station.number+cd,method="class",data=train)
 ans=predict(fit,test,type="class")
 tx=table(ans,test$Member.type)
 accuracy_Test <- sum(diag(tx)) / sum(tx)
-
+tx
+accuracy_Test
+plot(fit)
+text(fit)

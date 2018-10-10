@@ -54,7 +54,6 @@ class huristic{
 			h=node_list.get(i).gethuristic();
 			f=h+g+gp;
 			node_list.get(i).set_f(f);
-
 		  }	
 		}
 	}
