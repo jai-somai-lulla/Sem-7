@@ -8,3 +8,28 @@
 1539151477309	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.seleniumhq.org/
 1539151479284	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.seleniumhq.org/
 1539152833171	Marionette	INFO	Stopped listening on port 35899
+1539189852809	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.QfKMea9rZG2J"
+1539189859999	Marionette	INFO	Listening on port 35953
+1539189860096	Marionette	WARN	TLS certificate errors will be ignored for this session
+1539189860288	Marionette	DEBUG	[2147483649] Frame script loaded
+1539189860376	Marionette	DEBUG	[2147483649] Frame script registered
+1539189860587	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1539189862059	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1539189863095	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.google.com/?gws_rd=ssl
+1539189865004	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.google.com/?gws_rd=ssl
+console.warn: LoginRecipes: getRecipes: falling back to a synchronous message for: https://www.google.com
+1539190167742	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.hoPlmASuzTxz"
+1539190174045	Marionette	INFO	Listening on port 36687
+1539190174117	Marionette	WARN	TLS certificate errors will be ignored for this session
+1539190174281	Marionette	DEBUG	[2147483649] Frame script loaded
+1539190174289	Marionette	DEBUG	[2147483649] Frame script registered
+1539190174369	Marionette	DEBUG	[2147483649] Received DOM event beforeunload for about:blank
+1539190176292	Marionette	DEBUG	[2147483649] Received DOM event pagehide for about:blank
+1539190176773	Marionette	DEBUG	[2147483649] Received DOM event DOMContentLoaded for https://www.google.com/?gws_rd=ssl
+1539190178835	Marionette	DEBUG	[2147483649] Received DOM event pageshow for https://www.google.com/?gws_rd=ssl
+1539190202568	Marionette	DEBUG	[4294967297] Frame script loaded
+1539190202571	Marionette	DEBUG	[4294967297] Frame script registered
+1539190202667	Marionette	DEBUG	[4294967299] Frame script loaded
+1539190202670	Marionette	DEBUG	[4294967299] Frame script registered
+1539190205515	Marionette	INFO	Stopped listening on port 36687
+1539190206628	Marionette	INFO	Stopped listening on port 35953
