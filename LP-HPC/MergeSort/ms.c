@@ -2,7 +2,7 @@
 #include<omp.h>
 #include<unistd.h>
 #include<stdlib.h>
-#define SIZE 1000000
+#define SIZE 10
 
 void setup(int arr[SIZE]){
     for(int i=0;i<(SIZE/2);i++){
@@ -103,21 +103,25 @@ void ms(int arr[SIZE],int l,int h){
 
 
 void mss(int arr[SIZE],int l,int h){
-        
          if (h-l < 30) {
-                mergeSortSerial(arr, l, h);
-                return;
+               // mergeSortSerial(arr, l, h);
+                //return;
             }
     
     
     if(l<h){
+    
         int mid=(h+l)/2;
        // printf("L:%d M:%d H:%d\n",l,mid,h);
        // sleep(2);
             #pragma omp task
                 {   
+                
+        printf("H:%d L:%d  TID:%d\n",l,h,omp_get_thread_num());
                      mss(arr,l,mid);
                 }   
+        
+        printf("H:%d L:%d  TID:%d\n",l,h,omp_get_thread_num());        
                      mss(arr,mid+1,h);
             #pragma omp taskwait
             merge(arr,l,mid,h);
