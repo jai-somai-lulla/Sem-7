@@ -170,10 +170,21 @@ class Planner{
 	            //SPLIT AND RESTACK
 	            System.out.println(top+" Compound Split Before Re-entry"); 
 	            simple=list_assertion(top);
+	            boolean allincurrent=true;
 	            for(String sp:simple){
-	                goalStack.push(sp);
+	                //goalstack.push(sp);
+	                   if(!current_state.contains(sp)){
+	                        allincurrent=false;
+	                        break;
+	                     }
+	               } 
+	                if(!allincurrent){
+	                      goalStack.push(top);
+	                      for(String sp:simple){
+	                            goalStack.push(sp);
+	                        }
+	                    }
 	            }
-	         }
 	         else{
 	            if(top.contains("ONTABLE")){
 	                x=top.charAt(8);
