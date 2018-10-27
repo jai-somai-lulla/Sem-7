@@ -15,15 +15,15 @@ int main(void)
     int i;
     long fact;
     double total_time_serial,total_time_parallel;
-    clock_t start, end;
+    double start, end;
     float arr1[100000];
     float arr2[100000];
     float serial_stat[100000];
     float parallel_stat[100000];
 
 
-for(size=1;size<100000;size++){
-    start = clock();//time count starts 
+for(size=1;size<1000;size++){
+    start = omp_get_wtime();//time count starts 
     srand(time(NULL));
     for (i = 0; i < size; i++) 
     {
@@ -32,12 +32,12 @@ for(size=1;size<100000;size++){
       // printf("fact[%d]= %f \n", i + 1, arr2[i]);
      
     }
-    end = clock();//time count stops 
-    total_time_serial = ((double) (end - start)) /CLOCKS_PER_SEC;//calulate total time
+    end = omp_get_wtime();//time count stops 
+    total_time_serial = (end - start);//calulate total time
     
 
     printf("\nSerial Complete %d",size); 
-    start = clock();//time count starts 
+    start = omp_get_wtime();;//time count starts 
     srand(time(NULL));
     
 
@@ -49,8 +49,8 @@ for(size=1;size<100000;size++){
      //  printf("fact[%d]= %f \n", i + 1, arr2[i]);
      
     }
-    end = clock();//time count stops 
-    total_time_parallel = ((double) (end - start)) /CLOCKS_PER_SEC;//calulate total time
+    end = omp_get_wtime();;//time count stops 
+    total_time_parallel =  (end - start);//calulate total time
     
     printf("\nParallel Complete %d",size); 
     serial_stat[size]=total_time_serial;  

@@ -23,7 +23,10 @@ db.movierating.aggregate([{ $match: { } },
 
                   
  var reduceFunction1 = function(movieid, valuesrating) {
-                          print("J76 Reducer");
+                          print("MID:");
+                          print(movieid);
+                          print("VALUE ARRAY");
+                          print(valuesrating);
                           return Array.avg(valuesrating);
                       };
                       
